@@ -1,0 +1,32 @@
+[
+  {
+    "value": "more fuel",
+    "synonyms": [
+      "fuel",
+      "gas",
+      "gasoline",
+      "tank",
+      "gas tank",
+      "fuel tank"
+    ]
+  },
+  {
+    "value": "a tow truck",
+    "synonyms": [
+      "tow truck",
+      "towing",
+      "tow",
+      "broke down"
+    ]
+  },
+  {
+    "value": "a flat tire replaced",
+    "synonyms": [
+      "flat tire",
+      "tire",
+      "flat",
+      "spare",
+      "spare tire"
+    ]
+  }
+]

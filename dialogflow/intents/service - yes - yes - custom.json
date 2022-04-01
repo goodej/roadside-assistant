@@ -1,0 +1,49 @@
+{
+  "id": "77bc558e-89ed-4640-8712-ae064cd247a3",
+  "parentId": "ec4c67f9-8f08-48a6-9c1f-ad3909cd5654",
+  "rootParentId": "f94de811-d529-4170-a2af-efe51047e0c3",
+  "name": "service - yes - yes - custom",
+  "auto": true,
+  "contexts": [
+    "service-yes-yes-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "service.service-yes.service-yes-yes.service-yes-yes-custom",
+      "affectedContexts": [
+        {
+          "name": "service-yes-yes-custom-followup",
+          "lifespan": 2
+        }
+      ],
+      "parameters": [],
+      "messages": [
+        {
+          "type": "0",
+          "title": "",
+          "textToSpeech": "",
+          "lang": "en",
+          "speech": [
+            "Has $company contacted you yet?",
+            "Has $company been in contact with you?"
+          ],
+          "condition": ""
+        }
+      ],
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [
+    {
+      "name": "timeout15minutes"
+    }
+  ],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

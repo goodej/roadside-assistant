@@ -1,0 +1,360 @@
+[
+  {
+    "id": "9cde93a8-4ce7-455a-89a0-6bc2827289fd",
+    "data": [
+      {
+        "text": "No ",
+        "userDefined": false
+      },
+      {
+        "text": "fuel",
+        "meta": "@service",
+        "alias": "service",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "en",
+    "updated": 0
+  },
+  {
+    "id": "85a878f5-d693-4178-b00b-dbe2bbf561fd",
+    "data": [
+      {
+        "text": "My ",
+        "userDefined": false
+      },
+      {
+        "text": "fuel tank",
+        "meta": "@service",
+        "alias": "service",
+        "userDefined": true
+      },
+      {
+        "text": " is empty",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "en",
+    "updated": 0
+  },
+  {
+    "id": "269daba2-7718-47e7-8eb2-ecdecdc05c3d",
+    "data": [
+      {
+        "text": "I need ",
+        "userDefined": false
+      },
+      {
+        "text": "gasoline",
+        "meta": "@service",
+        "alias": "service",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "en",
+    "updated": 0
+  },
+  {
+    "id": "25c27b7f-6e0c-45b7-bdeb-98d308072a5c",
+    "data": [
+      {
+        "text": "I\u0027m out of ",
+        "userDefined": false
+      },
+      {
+        "text": "fuel",
+        "meta": "@service",
+        "alias": "service",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "en",
+    "updated": 0
+  },
+  {
+    "id": "a9091acd-444e-42d2-ab27-ef0c66528d3e",
+    "data": [
+      {
+        "text": "My vehicle has an empty ",
+        "userDefined": false
+      },
+      {
+        "text": "gas tank",
+        "meta": "@service",
+        "alias": "service",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "en",
+    "updated": 0
+  },
+  {
+    "id": "f182ab6b-5dc4-428e-8a44-f8f9c8c6991c",
+    "data": [
+      {
+        "text": "I ran out of ",
+        "userDefined": false
+      },
+      {
+        "text": "fuel",
+        "meta": "@service",
+        "alias": "service",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "en",
+    "updated": 0
+  },
+  {
+    "id": "394c57ca-0c31-45d8-ba44-67e31479494f",
+    "data": [
+      {
+        "text": "My car ran out of ",
+        "userDefined": false
+      },
+      {
+        "text": "fuel",
+        "meta": "@service",
+        "alias": "service",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "en",
+    "updated": 0
+  },
+  {
+    "id": "9da659af-a480-4db8-acb9-c1db79080a75",
+    "data": [
+      {
+        "text": "My car broke down and I need a ",
+        "userDefined": false
+      },
+      {
+        "text": "tow",
+        "meta": "@service",
+        "alias": "service",
+        "userDefined": false
+      },
+      {
+        "text": " truck",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "en",
+    "updated": 0
+  },
+  {
+    "id": "7128c5fa-3d3c-4391-830a-c1b7647ba28d",
+    "data": [
+      {
+        "text": "I will need to be ",
+        "userDefined": false
+      },
+      {
+        "text": "towed",
+        "meta": "@service",
+        "alias": "service",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "en",
+    "updated": 0
+  },
+  {
+    "id": "b3953cfc-5b90-41a0-b541-56aac8600f5f",
+    "data": [
+      {
+        "text": "I need ",
+        "userDefined": false
+      },
+      {
+        "text": "towing",
+        "meta": "@service",
+        "alias": "service",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "en",
+    "updated": 0
+  },
+  {
+    "id": "7f7d1c12-1154-41b1-b0d4-f22aab154684",
+    "data": [
+      {
+        "text": "I need a ",
+        "userDefined": false
+      },
+      {
+        "text": "tow",
+        "meta": "@service",
+        "alias": "service",
+        "userDefined": false
+      },
+      {
+        "text": " truck",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "en",
+    "updated": 0
+  },
+  {
+    "id": "43f551a4-3215-4bf4-852e-e5f67e2e7371",
+    "data": [
+      {
+        "text": "My car ",
+        "userDefined": false
+      },
+      {
+        "text": "broke down",
+        "meta": "@service",
+        "alias": "service",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "en",
+    "updated": 0
+  },
+  {
+    "id": "a2c2fd3f-bfd9-4c04-b581-b28e65fabe6b",
+    "data": [
+      {
+        "text": "I have a flat ",
+        "userDefined": false
+      },
+      {
+        "text": "tire",
+        "meta": "@service",
+        "alias": "service",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "en",
+    "updated": 0
+  },
+  {
+    "id": "743ecae2-642d-4231-8e9e-4066f0b03b71",
+    "data": [
+      {
+        "text": "I need help to put on a ",
+        "userDefined": false
+      },
+      {
+        "text": "spare tire",
+        "meta": "@service",
+        "alias": "service",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "en",
+    "updated": 0
+  },
+  {
+    "id": "a624cf06-eb26-404f-b334-28c6d5fd2723",
+    "data": [
+      {
+        "text": "I got a ",
+        "userDefined": false
+      },
+      {
+        "text": "flat",
+        "meta": "@service",
+        "alias": "service",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "en",
+    "updated": 0
+  },
+  {
+    "id": "121e3397-1b60-42b6-a0ee-47647f2117b9",
+    "data": [
+      {
+        "text": "Car ",
+        "userDefined": false
+      },
+      {
+        "text": "tire",
+        "meta": "@service",
+        "alias": "service",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "en",
+    "updated": 0
+  },
+  {
+    "id": "c8e21d70-a0e2-449e-b8a8-dc16296b63aa",
+    "data": [
+      {
+        "text": "My ",
+        "userDefined": false
+      },
+      {
+        "text": "tank",
+        "meta": "@service",
+        "alias": "service",
+        "userDefined": true
+      },
+      {
+        "text": " is empty",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "en",
+    "updated": 0
+  },
+  {
+    "id": "7363f35b-e611-44b3-b37e-00b3544c9480",
+    "data": [
+      {
+        "text": "My car ran out of ",
+        "userDefined": false
+      },
+      {
+        "text": "gasoline",
+        "meta": "@service",
+        "alias": "service",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 1,
+    "lang": "en",
+    "updated": 0
+  }
+]

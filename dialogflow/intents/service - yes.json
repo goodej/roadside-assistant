@@ -1,0 +1,59 @@
+{
+  "id": "980be3e7-5ac4-42f0-bf54-5fa38f32a336",
+  "parentId": "f94de811-d529-4170-a2af-efe51047e0c3",
+  "rootParentId": "f94de811-d529-4170-a2af-efe51047e0c3",
+  "name": "service - yes",
+  "auto": true,
+  "contexts": [
+    "service-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "service.service-yes",
+      "affectedContexts": [
+        {
+          "name": "service-yes-followup",
+          "lifespan": 2
+        }
+      ],
+      "parameters": [
+        {
+          "id": "d7f62480-a1ba-4838-90a8-6a00e0944427",
+          "name": "company",
+          "required": false,
+          "dataType": "@company",
+          "value": "$company",
+          "defaultValue": "",
+          "isList": false,
+          "prompts": [],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": []
+        }
+      ],
+      "messages": [
+        {
+          "type": "0",
+          "title": "",
+          "textToSpeech": "",
+          "lang": "en",
+          "speech": [
+            "$company is within 5 miles of your location and can assist you in an estimated 45 minutes. $company \u0027s website is www.placeholder.com. Would you like me to contact $company for you?"
+          ],
+          "condition": ""
+        }
+      ],
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

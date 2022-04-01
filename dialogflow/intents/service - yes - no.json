@@ -1,0 +1,48 @@
+{
+  "id": "72eb9663-30ce-41d7-b3cd-823eda9b6dcb",
+  "parentId": "980be3e7-5ac4-42f0-bf54-5fa38f32a336",
+  "rootParentId": "f94de811-d529-4170-a2af-efe51047e0c3",
+  "name": "service - yes - no",
+  "auto": true,
+  "contexts": [
+    "service-yes-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "service.service-yes.service-yes-no",
+      "affectedContexts": [
+        {
+          "name": "service-yes-no-followup",
+          "lifespan": 2
+        },
+        {
+          "name": "service-yes-no-followup-2",
+          "lifespan": 2
+        }
+      ],
+      "parameters": [],
+      "messages": [
+        {
+          "type": "0",
+          "title": "",
+          "textToSpeech": "",
+          "lang": "en",
+          "speech": [
+            "Would you like me to suggest a different service provider?"
+          ],
+          "condition": ""
+        }
+      ],
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

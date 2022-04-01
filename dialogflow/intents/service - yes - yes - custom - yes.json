@@ -1,0 +1,45 @@
+{
+  "id": "0ebd4331-0a02-4d11-b7ff-0261d5b77693",
+  "parentId": "77bc558e-89ed-4640-8712-ae064cd247a3",
+  "rootParentId": "f94de811-d529-4170-a2af-efe51047e0c3",
+  "name": "service - yes - yes - custom - yes",
+  "auto": true,
+  "contexts": [
+    "service-yes-yes-custom-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "service.service-yes.service-yes-yes.service-yes-yes-custom.service-yes-yes-custom-yes",
+      "affectedContexts": [
+        {
+          "name": "service-yes-no-no-followup",
+          "lifespan": 5
+        }
+      ],
+      "parameters": [],
+      "messages": [
+        {
+          "type": "0",
+          "title": "",
+          "textToSpeech": "",
+          "lang": "en",
+          "speech": [
+            "Excellent!",
+            "Wonderful!"
+          ],
+          "condition": ""
+        }
+      ],
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

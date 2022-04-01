@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Submitted Info {% if code %}"{{ code }}"{% endif %}{% endblock %}
+
+{% block main %}
+
+
+<div>
+  {% if infos %}
+  <h2>Submission Details:</h2>
+  <ul>
+    {% for key, value in infos.items() %}
+      <li>{{ key }}: {{ value }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+
+
+<script>
+  function myFunction() {
+    var copyText = document.getElementById("new_url");
+    copyText.select();
+    document.execCommand("copy");
+  }
+</script>
+
+{% endblock %}

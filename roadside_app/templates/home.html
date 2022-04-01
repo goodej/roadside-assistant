@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Roadside Assitance{% endblock %}
+
+{% block main %}
+
+<div class="container">
+  <div class="card-deck mb-3">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal text-center">Request for Help</h4>
+      </div>
+      <div class="card-body">
+        <form action="request_made" method="post">
+          <label for="first_name">First Name</label>
+          <input type="text" class="form-control" name="first_name" id="first_name" value="" required>
+          <br>
+          <label for="last_name">Last Name</label>
+          <input type="text" class="form-control" name="last_name" id="last_name" value="" required>
+          <br>
+          <label for="issue">Issue Description</label>
+          <input type="text" class="form-control" name="issue" id="issue" value="Please describe the issue" required>
+          <br>
+          <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    
+  </div>
+
+
+  {% if codes %}
+  <h2>Codes you have created:</h2>
+  <ul>
+    {% for code in codes %}
+    <a href="{{ url_for('home', code=code) }}">
+      <li>{{ code }}</li>
+    </a>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+
+{% endblock %}
