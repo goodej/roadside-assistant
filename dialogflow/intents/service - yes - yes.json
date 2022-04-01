@@ -1,0 +1,44 @@
+{
+  "id": "ec4c67f9-8f08-48a6-9c1f-ad3909cd5654",
+  "parentId": "980be3e7-5ac4-42f0-bf54-5fa38f32a336",
+  "rootParentId": "f94de811-d529-4170-a2af-efe51047e0c3",
+  "name": "service - yes - yes",
+  "auto": true,
+  "contexts": [
+    "service-yes-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "service.service-yes.service-yes-yes",
+      "affectedContexts": [
+        {
+          "name": "service-yes-yes-followup",
+          "lifespan": 2
+        }
+      ],
+      "parameters": [],
+      "messages": [
+        {
+          "type": "0",
+          "title": "",
+          "textToSpeech": "",
+          "lang": "en",
+          "speech": [
+            "I have sent your information to $company. They should contact you by phone soon."
+          ],
+          "condition": ""
+        }
+      ],
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

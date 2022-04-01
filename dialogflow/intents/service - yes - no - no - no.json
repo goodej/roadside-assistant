@@ -1,0 +1,40 @@
+{
+  "id": "08247550-f4b0-4974-a7b9-fbf26b2290ec",
+  "parentId": "e0b2a426-dec0-4634-bd43-b2ac16cac59f",
+  "rootParentId": "f94de811-d529-4170-a2af-efe51047e0c3",
+  "name": "service - yes - no - no - no",
+  "auto": true,
+  "contexts": [
+    "service-yes-no-no-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "service.service-yes.service-yes-no.service-yes-no-no.service-yes-no-no-no",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": "0",
+          "title": "",
+          "textToSpeech": "",
+          "lang": "en",
+          "speech": [
+            "Thank you for using Roadside Assistant chatbot. Goodbye."
+          ],
+          "condition": ""
+        }
+      ],
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": [],
+  "endInteraction": true
+}

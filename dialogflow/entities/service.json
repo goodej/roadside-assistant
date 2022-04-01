@@ -1,0 +1,9 @@
+{
+  "id": "be0d63af-c9d5-45ee-8b0f-c59b57383f67",
+  "name": "service",
+  "isOverridable": true,
+  "isEnum": false,
+  "isRegexp": false,
+  "automatedExpansion": false,
+  "allowFuzzyExtraction": false
+}
