@@ -7,7 +7,7 @@ import google.auth
 from google.cloud import storage, pubsub_v1
 from itsdangerous import base64_decode
 
-from .helper import _save_json
+from . import helper
 
 # local development only
 if os.path.exists(r"..\ignore"):
@@ -29,12 +29,14 @@ def request_made():
         user_info = {}
         submission_id = str(uuid.uuid4())
         user_info['uuid'] = submission_id
-        form_fields = ['first_name', 'last_name', 'issue']
+        form_fields = ['first_name', 'last_name', 'location', 'issue']
         for field in form_fields:
             user_info[field] = request.form[field]
+        
+        user_info['geodata'] = helper.geocode(user_info['location'])
 
         # temporarily store as json
-        _save_json(f'submissions\{submission_id}.json', user_info)
+        helper.save_json(f'submissions\{submission_id}.json', user_info)
 
         # upload_to_cloud_storage(user_info, submission_id)
         # publish_message(topic="roadside-requests", msg=json.dumps(user_info))
@@ -49,8 +51,8 @@ def request_made():
         print(f'value b64 & utf8 decoded: {value_b64_utf_decoded}')
 
 
-
-        return render_template('request_made.html', infos=user_info)
+        user_location_url = helper.get_user_location_url(user_info['geodata'])
+        return render_template('request_made.html', infos=user_info, user_location_url=user_location_url)
 
     if request.method == 'GET':
         return redirect(url_for('home'))
