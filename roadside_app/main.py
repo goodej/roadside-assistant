@@ -9,12 +9,16 @@ from itsdangerous import base64_decode
 
 from . import helper
 
-# local development only
+
+# ---- ENV variables --------------------------------------------------- #
+
 if os.path.exists(r"..\ignore"):
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.abspath(r"..\ignore\ece528-roadside-35eaaf122e30.json")
     os.environ['GRPC_DEFAULT_SSL_ROOTS_FILE_PATH_ENV_VAR'] = r"..\ignore\ca_cert.pem"
 credentials, project = google.auth.default()
 
+
+# ---- Flask App routing ----------------------------------------------- #
 
 app = Flask(__name__)
 
@@ -36,8 +40,6 @@ def request_made():
         user_info['geodata'] = helper.geocode(user_info['location'])
 
         # temporarily store as json
-        helper.save_json(f'submissions\{submission_id}.json', user_info)
-
         # upload_to_cloud_storage(user_info, submission_id)
         # publish_message(topic="roadside-requests", msg=json.dumps(user_info))
 
@@ -52,7 +54,14 @@ def request_made():
 
 
         user_location_url = helper.get_user_location_url(user_info['geodata'])
-        return render_template('request_made.html', infos=user_info, user_location_url=user_location_url)
+        places_nearby = helper.get_places_nearby(user_info["geodata"], user_info["issue"])
+        most_prominent = places_nearby[0]
+        top_place = helper.get_place_details(place_id=most_prominent['place_id'])
+
+        helper.save_json(f'submissions\{submission_id}.json', user_info)
+        return render_template('request_made.html', infos=user_info, user_location_url=user_location_url, places_nearby=places_nearby, top_place=top_place)
+
+
 
     if request.method == 'GET':
         return redirect(url_for('home'))
