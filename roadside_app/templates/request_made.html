@@ -5,7 +5,7 @@
 {% block main %}
 
 
-<div>
+<div class="container">
   {% if infos %}
   <h2>Submission Details:</h2>
   <ul>
@@ -16,6 +16,36 @@
   {% endif %}
 </div>
 
+
+<div class="container">
+  <h3>Your Location Details</h3>
+  <iframe
+    width="650"
+    height="450"
+    frameborder="0" style="border:0"
+    referrerpolicy="no-referrer-when-downgrade"
+    src= {{ user_location_url }}
+    allowfullscreen>
+  </iframe>
+</div>
+
+<div class="container">
+  <h4>Providers Found Nearby</h4>
+  <ul>
+    {% for place in places_nearby %}
+      <li>{{ place['name'] }}</li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="container">
+  <h4>Top Place Details</h4>
+  <ul>
+    {% for key, value in top_place.items() %}
+      <li>{{ key }}: {{ value }}</li>
+    {% endfor %}
+  </ul>
+</div>
 
 <script>
   function myFunction() {
