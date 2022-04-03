@@ -29,6 +29,24 @@
   </iframe>
 </div>
 
+<div class="container">
+  <h4>Providers Found Nearby</h4>
+  <ul>
+    {% for place in places_nearby %}
+      <li>{{ place['name'] }}</li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="container">
+  <h4>Top Place Details</h4>
+  <ul>
+    {% for key, value in top_place.items() %}
+      <li>{{ key }}: {{ value }}</li>
+    {% endfor %}
+  </ul>
+</div>
+
 <script>
   function myFunction() {
     var copyText = document.getElementById("new_url");
