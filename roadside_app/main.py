@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify, make_response
 import json
 import os
 import base64
+from datetime import datetime
 import uuid
 import google.auth
 from google.cloud import storage, pubsub_v1
@@ -17,6 +18,7 @@ if os.path.exists(r"..\ignore"):
     os.environ['GRPC_DEFAULT_SSL_ROOTS_FILE_PATH_ENV_VAR'] = r"..\ignore\ca_cert.pem"
 credentials, project = google.auth.default()
 
+posts = dict()
 
 # ---- Flask App routing ----------------------------------------------- #
 
@@ -65,3 +67,101 @@ def request_made():
 
     if request.method == 'GET':
         return redirect(url_for('home'))
+
+@app.route("/webhook", methods=["GET", "POST"])
+def webhook():
+    if request.method == "POST":
+        posts[f'post_{datetime.now().strftime("%Y/%m/%d %H:%M:%S")}'] = request.get_json()
+        helper.save_json(f'submissions\posts.json', posts)
+
+        fulfillment = handle_request()
+
+        return make_response(jsonify(fulfillment))
+
+    if request.method == "GET":
+        return "Hello webhook test!"
+
+
+# ---- DialogFlow Webhook --------------------------------------------- #
+
+def handle_request():
+    r = request.get_json()
+    session = r.get("session").split("/")[-1]
+
+    # load session cache
+    service_info = helper.load_cache(session)
+    
+    action = r.get("queryResult").get("action")
+
+    if action == "service.get_top_provider":
+        service_info.update(parse_service_followup(r))
+
+        # geocode provided user location
+        service_info["geodata"] = helper.geocode(service_info.get("location"))
+        user_location_url = helper.get_user_location_url(service_info['geodata'])
+
+        # find relevant service providers nearby & choose
+        places_nearby = helper.get_places_nearby(service_info["geodata"], service_info["service"])
+        most_prominent = places_nearby[0]
+        top_place = helper.get_place_details(place_id=most_prominent['place_id'])
+        
+        # update service info
+        service_info['places_nearby'] = places_nearby
+        service_info["prominence_index"] = 0
+        service_info["selected_provider"] = top_place
+        if not top_place["name"]:
+            print('no top places found')
+
+        msg1 = f'{top_place["name"]} is within a few miles of your location'
+        if top_place.get("rating"):
+            msg2 = f' and has a rating of {top_place["rating"]}'
+        else:
+            msg2 = ""
+
+        res =  f'{msg1}{msg2}. [{top_place["website"]}] Would you like me to contact them for you?'
+        
+    elif action == "service.notify_company":
+        company = service_info["selected_provider"]
+        phone_msg = ''
+        if company.get("formatted_phone_number"):
+            phone_msg = f' You can reach them at {company["formatted_phone_number"]} in the meantime if you have any questions.'
+        res = f'I have notified {company["name"]} you need {service_info["service"]}.  They will contact you soon with their estimated arival time.{phone_msg}'
+    
+    elif action == "service.get_different_provider":
+        service_info["prominence_index"] += 1
+        new_option = service_info["places_nearby"][service_info["prominence_index"]]
+        print(f'Getting details for {new_option["name"]} w/ id: {new_option["place_id"]}.')
+        new_place = helper.get_place_details(place_id=new_option['place_id'])
+
+        # update service info
+        service_info["selected_provider"] = new_place
+
+        msg1 = f'{new_place["name"]} is within a few miles of your location'
+        if new_place.get("rating"):
+            msg2 = f' and has a rating of {new_place["rating"]}'
+        else:
+            msg2 = ""
+
+        res =  f'{msg1}{msg2}. [{new_place["website"]}] Would you like me to contact them for you?'
+
+    
+    else:
+        res = f'Unconfigured action {action}.'
+
+    helper.save_cache(session, service_info)
+    return {'fulfillmentText': res}
+
+
+def get_output_context(r, context):
+    session_path = r["session"] + "/contexts/"
+    for item in r.get("queryResult").get("outputContexts"):
+        if item.get("name") == session_path + context:
+            return item
+
+def parse_service_followup(r):
+    result = dict()
+    service_followup = get_output_context(r, "service-followup")
+    result["service"] = service_followup["parameters"]["service"]
+    result["location"] = service_followup["parameters"]["location.original"]
+    result["name"] = service_followup["parameters"]["person.original"]
+    return result
