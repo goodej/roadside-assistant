@@ -35,6 +35,19 @@ def make_dir_if_not_existing(fp):
 def to_plus_str(s: str) -> str:
     return "+".join(s.split(" "))
 
+def load_cache(session):
+    session_path = r"submissions/{}.json".format(session)
+    make_dir_if_not_existing(session_path)
+    if os.path.exists(session_path):
+        return json.load(open(session_path))
+    else:
+        return dict()
+
+def save_cache(session, d):
+    session_path = r"submissions/{}.json".format(session)
+    with open(session_path, 'w') as f:
+        json.dump(d, f, indent=4)
+
 
 # ---- Google Maps API ------------------------------------------------ #
 
