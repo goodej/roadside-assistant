@@ -11,11 +11,15 @@
   "responses": [
     {
       "resetContexts": false,
-      "action": "service.service-yes.service-yes-no.service-yes-no-yes",
+      "action": "service.get_different_provider",
       "affectedContexts": [
         {
           "name": "service-yes-followup",
           "lifespan": 5
+        },
+        {
+          "name": "service-yes-no-yes-followup",
+          "lifespan": 2
         }
       ],
       "parameters": [],
@@ -32,7 +36,7 @@
     }
   ],
   "priority": 500000,
-  "webhookUsed": false,
+  "webhookUsed": true,
   "webhookForSlotFilling": false,
   "fallbackIntent": false,
   "events": [],

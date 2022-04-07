@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Roadside Assitance{% endblock %}
+
+{% block main %}
+
+<div>
+  <iframe 
+    width="350" 
+    height="500"
+    style="width:350px;float:right" 
+    allow="microphone;" 
+    src="https://console.dialogflow.com/api-client/demo/embedded/59210c59-9fbd-4b22-a56e-2e7fd8150007">
+  </iframe>
+</div>
+
+<div class="container">
+  <div class="card-deck mb-3">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal text-center">Request for Help</h4>
+      </div>
+      <div class="card-body">
+        <div class="container">
+            {% if infos %}
+            <h3>Submission Details:</h3>
+            <ul>
+              {% for key, value in infos.items() %}
+                <li>{{ key }}: {{ value }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+      </div>
+    </div>
+    
+  </div>
+
+
+  {% if codes %}
+  <h2>Codes you have created:</h2>
+  <ul>
+    {% for code in codes %}
+    <a href="{{ url_for('home', code=code) }}">
+      <li>{{ code }}</li>
+    </a>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+
+{% endblock %}

@@ -10,14 +10,42 @@
   "responses": [
     {
       "resetContexts": false,
-      "action": "service.service-yes.service-yes-yes",
+      "action": "service.notify_company",
       "affectedContexts": [
         {
           "name": "service-yes-yes-followup",
           "lifespan": 2
         }
       ],
-      "parameters": [],
+      "parameters": [
+        {
+          "id": "3e6a1e37-8429-4682-8b6a-e901d487b9d5",
+          "name": "service",
+          "required": false,
+          "dataType": "@service",
+          "value": "#service-yes-followup.service",
+          "defaultValue": "",
+          "isList": false,
+          "prompts": [],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": []
+        },
+        {
+          "id": "dcf46019-3ab8-45a5-aa60-2f1761628189",
+          "name": "company",
+          "required": false,
+          "dataType": "@company",
+          "defaultValue": "",
+          "isList": false,
+          "prompts": [],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": []
+        }
+      ],
       "messages": [
         {
           "type": "0",
@@ -34,8 +62,8 @@
     }
   ],
   "priority": 500000,
-  "webhookUsed": false,
-  "webhookForSlotFilling": false,
+  "webhookUsed": true,
+  "webhookForSlotFilling": true,
   "fallbackIntent": false,
   "events": [],
   "conditionalResponses": [],

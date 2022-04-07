@@ -1,5 +1,5 @@
 {
-  "description": "",
+  "description": "Roadside Assistant - Let\u0027s get you rolling again!",
   "language": "en",
   "shortDescription": "",
   "examples": "",
@@ -14,7 +14,9 @@
     "startIntents": [],
     "systemIntents": [],
     "endIntentIds": [
-      "08247550-f4b0-4974-a7b9-fbf26b2290ec"
+      "08247550-f4b0-4974-a7b9-fbf26b2290ec",
+      "0ebd4331-0a02-4d11-b7ff-0261d5b77693",
+      "26f659ce-a7ba-4a63-9598-9802f41fdb83"
     ],
     "voiceType": "VOICE_TYPE_UNSPECIFIED",
     "capabilities": [],
@@ -24,6 +26,15 @@
     "isDeviceAgent": false
   },
   "defaultTimezone": "America/New_York",
+  "webhook": {
+    "url": "https://ece528-roadside.uc.r.appspot.com//webhook",
+    "username": "",
+    "headers": {},
+    "available": true,
+    "useForDomains": false,
+    "cloudFunctionsEnabled": false,
+    "cloudFunctionsInitialized": false
+  },
   "isPrivate": true,
   "mlMinConfidence": 0.3,
   "supportedLanguages": [],

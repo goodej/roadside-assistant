@@ -10,7 +10,7 @@
   "responses": [
     {
       "resetContexts": false,
-      "action": "service.service-yes",
+      "action": "service.get_top_provider",
       "affectedContexts": [
         {
           "name": "service-yes-followup",
@@ -19,11 +19,25 @@
       ],
       "parameters": [
         {
-          "id": "d7f62480-a1ba-4838-90a8-6a00e0944427",
+          "id": "4a432e6b-1ef9-4898-9b50-e9eee22e80af",
           "name": "company",
           "required": false,
           "dataType": "@company",
           "value": "$company",
+          "defaultValue": "",
+          "isList": false,
+          "prompts": [],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": []
+        },
+        {
+          "id": "dc45f1bd-7aef-4ca8-bef6-d0c47204258b",
+          "name": "service",
+          "required": false,
+          "dataType": "@service",
+          "value": "#service-followup.service",
           "defaultValue": "",
           "isList": false,
           "prompts": [],
@@ -49,7 +63,7 @@
     }
   ],
   "priority": 500000,
-  "webhookUsed": false,
+  "webhookUsed": true,
   "webhookForSlotFilling": false,
   "fallbackIntent": false,
   "events": [],

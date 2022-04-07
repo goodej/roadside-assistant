@@ -17,7 +17,22 @@
           "lifespan": 2
         }
       ],
-      "parameters": [],
+      "parameters": [
+        {
+          "id": "500ec281-da1a-4dbc-8a7e-df6a760e2322",
+          "name": "company",
+          "required": false,
+          "dataType": "@company",
+          "value": "#service-yes-yes-followup.company",
+          "defaultValue": "",
+          "isList": false,
+          "prompts": [],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": []
+        }
+      ],
       "messages": [
         {
           "type": "0",
