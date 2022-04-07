@@ -2,6 +2,8 @@ import json
 import os
 import requests
 
+import google.auth
+from google.cloud import storage
 import googlemaps
 
 
@@ -11,13 +13,20 @@ RADIUS = 1609 # meters
 
 
 # ---- ENV variables -------------------------------------------------- #
-if os.path.exists(r"..\ignore"):
-    with open(os.path.abspath(r"..\ignore\ece528-roadside-maps.json")) as f:
-        api_info = json.load(f)
-    MAPS_API_KEY = api_info['MAPS_API_KEY']
-    gmaps = googlemaps.Client(key=MAPS_API_KEY)
-else:
-    gmaps = googlemaps.Client()
+
+# deploy
+
+# Maps API
+with open(os.path.abspath(r"./env/ece528-roadside-maps.json")) as f:
+    api_info = json.load(f)
+MAPS_API_KEY = api_info['MAPS_API_KEY']
+gmaps = googlemaps.Client(key=MAPS_API_KEY)
+
+# GCP
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.abspath(r"./env/ece528-roadside-35eaaf122e30.json")
+credentials, project = google.auth.default()
+storage_client = storage.Client()
+bucket = storage_client.bucket("roadside-cache")
 
 
 # ---- General Utilities ---------------------------------------------- #
@@ -47,6 +56,17 @@ def save_cache(session, d):
     session_path = r"submissions/{}.json".format(session)
     with open(session_path, 'w') as f:
         json.dump(d, f, indent=4)
+
+def upload_to_cloud_storage(item:dict, destination_blob_name):
+    blob = bucket.blob(destination_blob_name)
+    blob.upload_from_string(json.dumps(item))
+
+def download_from_cloud_storage(blob_name:str) -> dict:
+    blob = bucket.blob(blob_name)
+    if blob.exists():
+        return json.loads(blob.download_as_string())
+    else:
+        return dict()
 
 
 # ---- Google Maps API ------------------------------------------------ #
