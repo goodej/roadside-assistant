@@ -8,14 +8,17 @@ import google.auth
 from google.cloud import storage, pubsub_v1
 from itsdangerous import base64_decode
 
-from . import helper
+from app_helper import helper
 
 
 # ---- ENV variables --------------------------------------------------- #
 
-if os.path.exists(r"..\ignore"):
-    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.abspath(r"..\ignore\ece528-roadside-35eaaf122e30.json")
-    os.environ['GRPC_DEFAULT_SSL_ROOTS_FILE_PATH_ENV_VAR'] = r"..\ignore\ca_cert.pem"
+# local only
+if os.path.exists(r"../ignore"):
+    os.environ['GRPC_DEFAULT_SSL_ROOTS_FILE_PATH_ENV_VAR'] = os.path.abspath(r"../ignore/ca_cert.pem")
+
+# deploy
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.abspath(r"./env/ece528-roadside-35eaaf122e30.json")
 credentials, project = google.auth.default()
 
 posts = dict()
@@ -27,6 +30,20 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def home():
     return render_template('home.html')
+
+# @app.route('/dialogue', methods=['GET', 'POST'])
+# def dialogue():
+#     if request.method == 'POST':
+#         r = request.get_json()
+#         user_info = {}
+#         fields = ['name', 'location', 'service']
+#         user_info = {k: v for k, v in r.items() if k in fields}
+
+#         return render_template('dialogue.html', infos=user_info)
+
+#     if request.method == 'GET':
+#         return redirect(url_for('home'))
+    
 
 @app.route('/request_made', methods=['GET', 'POST'])
 def request_made():
@@ -60,7 +77,7 @@ def request_made():
         most_prominent = places_nearby[0]
         top_place = helper.get_place_details(place_id=most_prominent['place_id'])
 
-        helper.save_json(f'submissions\{submission_id}.json', user_info)
+        # helper.save_json(f'submissions\{submission_id}.json', user_info)
         return render_template('request_made.html', infos=user_info, user_location_url=user_location_url, places_nearby=places_nearby, top_place=top_place)
 
 
@@ -71,8 +88,8 @@ def request_made():
 @app.route("/webhook", methods=["GET", "POST"])
 def webhook():
     if request.method == "POST":
-        posts[f'post_{datetime.now().strftime("%Y/%m/%d %H:%M:%S")}'] = request.get_json()
-        helper.save_json(f'submissions\posts.json', posts)
+        # posts[f'post_{datetime.now().strftime("%Y/%m/%d %H:%M:%S")}'] = request.get_json()
+        # helper.save_json(f'submissions\posts.json', posts)
 
         fulfillment = handle_request()
 
@@ -85,11 +102,12 @@ def webhook():
 # ---- DialogFlow Webhook --------------------------------------------- #
 
 def handle_request():
+    entity_res = dict()
     r = request.get_json()
     session = r.get("session").split("/")[-1]
 
     # load session cache
-    service_info = helper.load_cache(session)
+    service_info = helper.download_from_cloud_storage(session)
     
     action = r.get("queryResult").get("action")
 
@@ -109,6 +127,21 @@ def handle_request():
         service_info['places_nearby'] = places_nearby
         service_info["prominence_index"] = 0
         service_info["selected_provider"] = top_place
+
+        # entity_res = {
+        #     "sessionEntityTypes": [
+        #         {
+        #             "name": r["session"] + "/entityTypes/" + "company",
+        #             "entities":[
+        #                 {
+        #                 "value": top_place['name'],
+        #                 },
+        #             ],
+        #             "entityOverrideMode":"ENTITY_OVERRIDE_MODE_OVERRIDE"
+        #         }
+        #     ]
+        # }
+
         if not top_place["name"]:
             print('no top places found')
 
@@ -119,6 +152,7 @@ def handle_request():
             msg2 = ""
 
         res =  f'{msg1}{msg2}. [{top_place["website"]}] Would you like me to contact them for you?'
+        
         
     elif action == "service.notify_company":
         company = service_info["selected_provider"]
@@ -143,12 +177,11 @@ def handle_request():
             msg2 = ""
 
         res =  f'{msg1}{msg2}. [{new_place["website"]}] Would you like me to contact them for you?'
-
     
     else:
         res = f'Unconfigured action {action}.'
 
-    helper.save_cache(session, service_info)
+    helper.upload_to_cloud_storage(service_info, destination_blob_name=session)
     return {'fulfillmentText': res}
 
 
@@ -165,3 +198,4 @@ def parse_service_followup(r):
     result["location"] = service_followup["parameters"]["location.original"]
     result["name"] = service_followup["parameters"]["person.original"]
     return result
+
