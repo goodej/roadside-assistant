@@ -15,14 +15,57 @@
       ],
       "parameters": [
         {
-          "id": "f1c1cd97-d9ca-4da2-bce0-a1d3e8e7e21b",
+          "id": "78ec5d05-f271-4747-9d96-7dcf8b6298ca",
           "name": "service",
-          "required": false,
+          "required": true,
           "dataType": "@service",
           "value": "$service",
           "defaultValue": "",
           "isList": false,
-          "prompts": [],
+          "prompts": [
+            {
+              "lang": "en",
+              "value": "Can you tell me more about the problem you\u0027re having?"
+            }
+          ],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": []
+        },
+        {
+          "id": "be44e73e-4dc4-46dd-bb0c-4bf0fc6bbdd2",
+          "name": "location",
+          "required": true,
+          "dataType": "@sys.location",
+          "value": "$location",
+          "defaultValue": "",
+          "isList": false,
+          "prompts": [
+            {
+              "lang": "en",
+              "value": "Please provide some details on your location so we can find you a service provider.  An address, zip code, street intersection, or city \u0026 state will suffice."
+            }
+          ],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": []
+        },
+        {
+          "id": "9295a56e-6e86-492d-9bc5-6826c82aeada",
+          "name": "person",
+          "required": true,
+          "dataType": "@sys.person",
+          "value": "$person",
+          "defaultValue": "",
+          "isList": false,
+          "prompts": [
+            {
+              "lang": "en",
+              "value": "Could I please get your name?"
+            }
+          ],
           "promptMessages": [],
           "noMatchPromptMessages": [],
           "noInputPromptMessages": [],
@@ -36,7 +79,9 @@
           "textToSpeech": "",
           "lang": "en",
           "speech": [
-            "You need $service. Is this correct?"
+            "You need $service. Is this correct?",
+            "Thank you $person.  If I understand, you need $service - is this correct?",
+            "Okay.  You\u0027re near $location and you need $service.  Is this correct?"
           ],
           "condition": ""
         }

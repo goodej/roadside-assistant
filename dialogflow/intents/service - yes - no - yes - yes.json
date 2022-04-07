@@ -1,28 +1,25 @@
 {
-  "id": "42e12ff0-0a39-4734-9ca2-105f184d64b0",
-  "parentId": "77bc558e-89ed-4640-8712-ae064cd247a3",
+  "id": "26f659ce-a7ba-4a63-9598-9802f41fdb83",
+  "parentId": "72ed1718-f83e-420a-9451-7dc7a37e0c93",
   "rootParentId": "f94de811-d529-4170-a2af-efe51047e0c3",
-  "name": "service - yes - yes - custom - no",
+  "name": "service - yes - no - yes - yes",
   "auto": true,
   "contexts": [
-    "service-yes-yes-custom-followup"
+    "service-yes-followup",
+    "service-yes-no-yes-followup"
   ],
   "responses": [
     {
       "resetContexts": false,
-      "action": "service.get_different_provider",
-      "affectedContexts": [
-        {
-          "name": "service-yes-no-followup",
-          "lifespan": 5
-        }
-      ],
+      "action": "service.notify_company",
+      "affectedContexts": [],
       "parameters": [
         {
-          "id": "3b9803c7-9a34-4273-9970-41561a903443",
-          "name": "company",
+          "id": "eb125ac9-c970-47e2-946c-79c4a8d91e7b",
+          "name": "service",
           "required": false,
-          "dataType": "@company",
+          "dataType": "@service",
+          "value": "#service-yes-no-yes-followup.service",
           "defaultValue": "",
           "isList": false,
           "prompts": [],
@@ -46,10 +43,11 @@
   ],
   "priority": 500000,
   "webhookUsed": true,
-  "webhookForSlotFilling": true,
+  "webhookForSlotFilling": false,
   "fallbackIntent": false,
   "events": [],
   "conditionalResponses": [],
   "condition": "",
-  "conditionalFollowupEvents": []
+  "conditionalFollowupEvents": [],
+  "endInteraction": true
 }
