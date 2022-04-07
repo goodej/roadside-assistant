@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify, make_response
+from turbo_flask import Turbo
 import json
 import os
 import base64
@@ -7,6 +8,9 @@ import uuid
 import google.auth
 from google.cloud import storage, pubsub_v1
 from itsdangerous import base64_decode
+import random
+import threading
+import time
 
 from app_helper import helper
 
@@ -26,23 +30,35 @@ posts = dict()
 # ---- Flask App routing ----------------------------------------------- #
 
 app = Flask(__name__)
+turbo = Turbo(app)
+
+# @app.before_first_request
+# def before_first_request():
+#     threading.Thread(target=update_load).start()
+
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
     return render_template('home.html')
 
-# @app.route('/dialogue', methods=['GET', 'POST'])
-# def dialogue():
-#     if request.method == 'POST':
-#         r = request.get_json()
-#         user_info = {}
-#         fields = ['name', 'location', 'service']
-#         user_info = {k: v for k, v in r.items() if k in fields}
 
-#         return render_template('dialogue.html', infos=user_info)
+@app.route('/dialogue', methods=['GET', 'POST'])
+def dialogue():
+    if request.method == 'POST':
+        r = request.get_json()
+        user_info = {}
+        fields = ['name', 'location', 'service']
+        user_info = {k: v for k, v in r.items() if k in fields}
 
-#     if request.method == 'GET':
-#         return redirect(url_for('home'))
+        if turbo.can_stream():
+            return turbo.stream(
+                turbo.append(render_template('loadavg.html', load=user_info), target='load'),
+            )
+
+    if request.method == 'GET':
+        
+        return render_template('dialogue.html', infos={})
+
     
 
 @app.route('/request_made', methods=['GET', 'POST'])
@@ -99,15 +115,32 @@ def webhook():
         return "Hello webhook test!"
 
 
+# @app.context_processor
+# def inject_user_info(user_info):
+#     load = [int(random.random() * 100) / 100 for _ in range(3)]
+#     user_info = {'name': load[0], "location": f"{load[2]} Main St", "service": f"{load[2]} gallons fuel"}
+#     return user_info
+
+@app.context_processor
+def cache_user_info():
+    if session.get('user_info') is None:
+        return {}
+    # load = [int(random.random() * 100) for _ in range(3)]
+    # user_info = {'name': load[0], "location": f"{load[2]} Main St", "service": f"{load[2]} gallons fuel"}
+    else:
+        return session['user_info']
+
+
 # ---- DialogFlow Webhook --------------------------------------------- #
 
 def handle_request():
     entity_res = dict()
     r = request.get_json()
-    session = r.get("session").split("/")[-1]
+    
+    df_session = r.get("session").split("/")[-1]
 
-    # load session cache
-    service_info = helper.download_from_cloud_storage(session)
+    # load df session cache
+    service_info = helper.download_from_cloud_storage(df_session)
     
     action = r.get("queryResult").get("action")
 
@@ -181,7 +214,9 @@ def handle_request():
     else:
         res = f'Unconfigured action {action}.'
 
-    helper.upload_to_cloud_storage(service_info, destination_blob_name=session)
+    helper.upload_to_cloud_storage(service_info, destination_blob_name=df_session)
+    session['user_info'] = {'service': service_info['service'], 'name': service_info['name'], 'location': service_info['location']}
+    cache_user_info()
     return {'fulfillmentText': res}
 
 
@@ -199,3 +234,6 @@ def parse_service_followup(r):
     result["name"] = service_followup["parameters"]["person.original"]
     return result
 
+def update_load():
+    with app.app_context():
+        turbo.push(turbo.replace(render_template('loadavg.html'), 'load'))
